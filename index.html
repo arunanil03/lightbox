@@ -146,6 +146,7 @@
             var code =parseJwt(parseJwt(success.user.ra));
             next.searchParams.append("code",code);
             next.searchParams.append("state",state);
+            alert(next.toString());
             window.location.href = next.toString();
           })
           .catch((error) => {
