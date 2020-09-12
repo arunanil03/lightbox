@@ -129,7 +129,6 @@
 
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
-      console.log(queryString);
 
       function signIn() {
         const redirect_uri = urlParams.get("redirect_uri");
@@ -142,12 +141,11 @@
           .auth()
           .signInWithEmailAndPassword(userSIEmail, userSIPassword)
           .then((success) => {
-            const next = new URL(redirect_uri);
-            var code =parseJwt(parseJwt(success.user.ra));
-            next.searchParams.append("code",code);
-            next.searchParams.append("state",state);
-            alert(next.toString());
-            window.location.href = next.toString();
+            var url=new URL(redirect_uri);
+            url.searchParams.append("code",success.user.ra);
+            url.searchParams.append("state",state);
+            console.log(url);
+            window.location.replace(url.toString());
           })
           .catch((error) => {
             var errorCode = error.code;
